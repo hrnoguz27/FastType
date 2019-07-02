@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // yeni commit için yorum yapıldı
+    //thank you babuş
 
     public void baslat(final View view) {
         kelime.setEnabled(true);
