@@ -9,5 +9,9 @@ public class StartPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
+        int i =0;
+        int b = 5;
+        int toplam = i+b;
+        System.out.println(toplam);
     }
 }
