@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colordogru">#47A447</color>
+    <color name="coloryanlis">#FF0000</color>
+    <color name="white">#fff</color>
+    <color name="bluedark">#2f333f</color>
+    <color name="sixty">#94e650</color>
+    <color name="fifty">#bee650</color>
+    <color name="fourty">#e6e350</color>
+    <color name="thirty">#e6af50</color>
+    <color name="twenty">#e68f50</color>
+    <color name="ten">#e82020</color>
+
+
+</resources>
