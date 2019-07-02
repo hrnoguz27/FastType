@@ -13,5 +13,7 @@ public class StartPage extends AppCompatActivity {
         int b = 5;
         int toplam = i+b;
         System.out.println(toplam);
+        // comment line test
+        System.out.println("Hello this is test string");
     }
 }
