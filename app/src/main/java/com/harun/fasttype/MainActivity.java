@@ -28,8 +28,6 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     TextView onceki, simdiki, sonraki, tvsayac;
     EditText kelime;
-    Spinner spinnerLanguage;
-    private ArrayAdapter<String> dataAdapterForLanguages;
     ArrayList<String> kelimelistesi;
     private String[] languages={"English","Türkçe"};
     int ikincisayi;
@@ -52,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
         tvsayac = findViewById(R.id.tv_sayac);
         baslatbtn = findViewById(R.id.btn_start);
         tvsayac.setVisibility(View.GONE);
-        spinnerLanguage = findViewById(R.id.sLanguage);
-        dataAdapterForLanguages = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,languages);
+
         String textFileName;
         mydialog = new Dialog(this);
         kelimelistesi = new ArrayList<>();
