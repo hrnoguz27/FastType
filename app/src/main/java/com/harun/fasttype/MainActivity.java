@@ -10,9 +10,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
@@ -26,7 +28,10 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     TextView onceki, simdiki, sonraki, tvsayac;
     EditText kelime;
+    Spinner spinnerLanguage;
+    private ArrayAdapter<String> dataAdapterForLanguages;
     ArrayList<String> kelimelistesi;
+    private String[] languages={"English","Türkçe"};
     int ikincisayi;
     int ucuncusayi;
     int temp;
@@ -47,15 +52,18 @@ public class MainActivity extends AppCompatActivity {
         tvsayac = findViewById(R.id.tv_sayac);
         baslatbtn = findViewById(R.id.btn_start);
         tvsayac.setVisibility(View.GONE);
+        spinnerLanguage = findViewById(R.id.sLanguage);
+        dataAdapterForLanguages = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,languages);
+        String textFileName;
         mydialog = new Dialog(this);
         kelimelistesi = new ArrayList<>();
+        textFileName="data.txt";
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
 
 
-                    new InputStreamReader(getAssets().open("dataeng.txt"), "UTF-8"));
-            //Yazma hatası giderildi....
+                    new InputStreamReader(getAssets().open(textFileName), "UTF-8"));
             // do reading, usually loop until end of file reading
             String mLine;
             while ((mLine = reader.readLine()) != null) {
@@ -78,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         tvsayac.setVisibility(View.INVISIBLE);
         circularProgressBar = findViewById(R.id.progress_circular);
         kelime.setHint("Yazmaya Başla");
-
     }
 
     public void baslat(final View view) {
@@ -86,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         tvsayac.setVisibility(View.VISIBLE);
         baslatbtn.setVisibility(View.GONE);
         baslatbtn.setEnabled(false);
-        // baslatbtn.setText("start");
         kelime.requestFocus();
         int animationDuration = 60000; // 2500ms = 2,5s
         circularProgressBar.setProgressWithAnimation(100, animationDuration); // Default duration = 1500ms
@@ -207,6 +213,12 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    private String selectedLanguage(){
+        String selected;
+        selected="aaaaa";
+        return selected;
     }
 
 }
