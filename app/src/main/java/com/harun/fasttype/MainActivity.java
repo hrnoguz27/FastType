@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         kelime.setHint("Yazmaya Başla");
     }
 
+    // yeni commit için yorum yapıldı
+
     public void baslat(final View view) {
         kelime.setEnabled(true);
         tvsayac.setVisibility(View.VISIBLE);
