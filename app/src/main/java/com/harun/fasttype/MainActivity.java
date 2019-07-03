@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         String textFileName;
         mydialog = new Dialog(this);
         kelimelistesi = new ArrayList<>();
-        textFileName="data.txt";
+        textFileName="wordsEN.txt";
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
