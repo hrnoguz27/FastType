@@ -24,7 +24,8 @@
             android:fontFamily="@font/allerta_stencil"
             android:text="Önceki Kelime"
             android:textColor="#47A447"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/tv_last"
@@ -38,7 +39,8 @@
             android:fontFamily="@font/allerta_stencil"
             android:text="Sonraki Kelime"
             android:textColor="#47A447"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:gravity="center"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -56,7 +58,8 @@
             android:fontFamily="@font/allerta_stencil"
             android:text="Ana Kelime"
             android:textColor="#fff"
-            android:textSize="35dp" />
+            android:textSize="35dp"
+            android:gravity="center"/>
 
     </RelativeLayout>
 

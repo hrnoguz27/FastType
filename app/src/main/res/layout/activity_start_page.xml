@@ -5,31 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StartPage">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FFC107"
+        android:text="START"
+        android:textColor="#000"
+        tools:layout_editor_absoluteX="34dp"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout"
+        android:layout_width="185dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="10dip"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="-2dp">
+        tools:layout_editor_absoluteX="16dp">
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:background="#fff"
-            android:text="HELLOOOOOOO"
-            android:textColor="#000"
-            android:gravity="center"/>
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="Choose which language you want to type!"
+            android:textColor="#000" />
 
         <Spinner
             android:id="@+id/sLanguage"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:textAlignment="center"/>
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

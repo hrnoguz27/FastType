@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     CircularProgressBar circularProgressBar;
     ImageButton baslatbtn;
     Dialog mydialog;
+    public String textFileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
         tvsayac = findViewById(R.id.tv_sayac);
         baslatbtn = findViewById(R.id.btn_start);
         tvsayac.setVisibility(View.GONE);
-
-        String textFileName;
         mydialog = new Dialog(this);
         kelimelistesi = new ArrayList<>();
         textFileName="wordsEN.txt";
