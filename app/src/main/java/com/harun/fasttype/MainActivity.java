@@ -102,28 +102,8 @@ public class MainActivity extends AppCompatActivity {
                 // sayac--;
                 tvsayac.setText(String.valueOf(millisUntilFinished / 1000));
                 System.out.println(millisUntilFinished);
-                if(millisUntilFinished<60000 && millisUntilFinished>50000){
-                    circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.sixty));
-                }
-                else if(millisUntilFinished<50000 && millisUntilFinished>40000){
-                    circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.fifty));
-                }
-                else if(millisUntilFinished<40000 && millisUntilFinished>30000){
-                    circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.fourty));
-                }
-                else if(millisUntilFinished<30000 && millisUntilFinished>20000){
-                    circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.thirty));
-                }
-                else if(millisUntilFinished<20000 && millisUntilFinished>10000){
-                    circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.twenty));
-                }
-                else{
-                    circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.ten));
-                }
-
-
+                colorful(millisUntilFinished);
             }
-
             @Override
             public void onFinish() {
                 closekeyboard();
@@ -204,6 +184,26 @@ public class MainActivity extends AppCompatActivity {
         int n = rand.nextInt(kelimelistesi.size());
         System.out.println(n);
         return n;
+    }
+    public void colorful(long sec){
+        if(sec<60000 && sec>50000){
+            circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.sixty));
+        }
+        else if(sec<50000 && sec>40000){
+            circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.fifty));
+        }
+        else if(sec<40000 && sec>30000){
+            circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.fourty));
+        }
+        else if(sec<30000 && sec>20000){
+            circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.thirty));
+        }
+        else if(sec<20000 && sec>10000){
+            circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.twenty));
+        }
+        else{
+            circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.ten));
+        }
     }
 
     private void closekeyboard() {

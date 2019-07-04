@@ -1,47 +1,57 @@
 package com.harun.fasttype;
 
-import android.app.Dialog;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import com.harun.fasttype.Adapters.Language;
-import com.harun.fasttype.Adapters.SelectionAdapter;
+import android.util.Log;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class StartPage extends AppCompatActivity {
-    Dialog mydialogx;
+    private static final String TAG = "StartPage";
+    private ArrayList<String> lNames = new ArrayList<>();
+    private ArrayList<Integer> limagesUrls = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
-        mydialogx = new Dialog(StartPage.this);
+        getImages();
+    }
+    private void getImages(){
+        Log.d(TAG,"initImagesBitmaps: preparing bitmaps");
+        limagesUrls.add(R.mipmap.england);
+        lNames.add("English");
 
-        final String[] arraySpinner = new String[] {
-                "English","Turkish","Arabic","Chinese","French","German","Greek","Italian",
-                "Japanese","Russian","Spanish"
-        };
+        limagesUrls.add(R.mipmap.turkish);
+        lNames.add("Türkçe");
 
+        limagesUrls.add(R.mipmap.germany);
+        lNames.add("Deutsch");
 
+        limagesUrls.add(R.mipmap.french);
+        lNames.add("Français");
 
+        limagesUrls.add(R.mipmap.italy);
+        lNames.add("Italiano");
 
+        limagesUrls.add(R.mipmap.japan);
+        lNames.add("日本の");
+
+        limagesUrls.add(R.mipmap.china);
+        lNames.add("中国");
+
+        initRecyclerView();
+    }
+    private void initRecyclerView(){
+        Log.d(TAG,"initRecyclerview: init recyclerview");
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView recyclerView = findViewById(R.id.Lrecyclerview);
+        recyclerView.setLayoutManager(layoutManager);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,lNames,limagesUrls);
+        recyclerView.setAdapter(adapter);
 
     }
-
-    public void select(View view){
-        ShowDialog showDialog = new ShowDialog();
-        showDialog.show(getSupportFragmentManager(),"");
-    }
-
-
 }

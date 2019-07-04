@@ -13,6 +13,11 @@
     <color name="thirty">#e6af50</color>
     <color name="twenty">#e68f50</color>
     <color name="ten">#e82020</color>
+    <color name="primaryDark">#292b3d</color>
+    <color name="graylight">#fafafa</color>
+    <color name="startblue">#09c6df</color>
+    <color name="endblue">#0bcce6</color>
+
 
 
 </resources>
