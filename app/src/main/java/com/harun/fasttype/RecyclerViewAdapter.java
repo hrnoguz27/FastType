@@ -1,6 +1,7 @@
 package com.harun.fasttype;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,24 +34,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_languages,viewGroup,false);
+        View view;
+       LayoutInflater inflater = LayoutInflater.from(lcontext);
+       view = inflater.inflate(R.layout.list_languages,null,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         Log.d(TAG,"onBindViewHolder: called.");
-        Glide.with(lcontext)
-                .asBitmap()
-                .load(limagesUrls.get(i))
-                .into(viewHolder.btn_Limages);
+//        Glide.with(lcontext)
+//                .asBitmap()
+//                .load(limagesUrls.get(i))
+//                .into(viewHolder.btn_Limages);
 
+        viewHolder.btn_Limages.setImageResource(limagesUrls.get(i));
         viewHolder.txt_Lnames.setText(lNames.get(i));
         viewHolder.btn_Limages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG,"onclick: clicked on an image:"+lNames.get(i));
-                Toast.makeText(lcontext,lNames.get(i),Toast.LENGTH_SHORT).show();
+                Toast.makeText(lcontext,"Seçilen dil: "+lNames.get(i),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(lcontext,MainActivity.class);
+                intent.putExtra("dil",lNames.get(i));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                lcontext.startActivity(intent);
             }
         });
     }

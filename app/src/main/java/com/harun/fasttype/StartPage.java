@@ -41,6 +41,8 @@ public class StartPage extends AppCompatActivity {
 
         limagesUrls.add(R.mipmap.china);
         lNames.add("中国");
+        System.out.println(limagesUrls.get(2));
+        System.out.println(lNames.get(2));
 
         initRecyclerView();
     }
@@ -50,7 +52,7 @@ public class StartPage extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         RecyclerView recyclerView = findViewById(R.id.Lrecyclerview);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this,lNames,limagesUrls);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(),lNames,limagesUrls);
         recyclerView.setAdapter(adapter);
 
     }
