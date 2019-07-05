@@ -4,7 +4,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -103,8 +105,9 @@ public class MainActivity extends AppCompatActivity {
         kelime.setHint("Start Type");
     }
 
-    // yeni commit için yorum yapıldı
-    //thank you babuş
+
+
+
 
     public void baslat(final View view) {
         kelime.setEnabled(true);
@@ -241,6 +244,9 @@ public class MainActivity extends AppCompatActivity {
         selected="aaaaa";
         return selected;
     }
+
+
+
 
 }
 

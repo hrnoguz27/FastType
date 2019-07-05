@@ -1,6 +1,7 @@
 package com.harun.fasttype;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ public class StartPage extends AppCompatActivity {
     private ArrayList<Integer> limagesUrls = new ArrayList<>();
     static String selectedlang = "";
     ImageButton startBtn;
+    boolean doubleBackToExitPressedOnce = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,30 @@ public class StartPage extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed() {
+
+        if(doubleBackToExitPressedOnce){
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "tap one more to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+        // super.onBackPressed();
+
+
+
+    }
+
+
     private void getImages(){
         Log.d(TAG,"initImagesBitmaps: preparing bitmaps");
         limagesUrls.add(R.mipmap.england);
