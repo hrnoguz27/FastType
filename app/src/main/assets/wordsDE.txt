@@ -1,0 +1,7 @@
+woche
+jahr
+heute
+morgen
+gestern 
+kalender
+machen
