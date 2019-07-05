@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         kelimelistesi = new ArrayList<>();
         textFileName=null;
         Intent getLang = getIntent();
-        System.out.println(getLang.getStringExtra("selectedLang"));
+        Log.i("gelendil",getLang.getStringExtra("selectedLang"));
         sLanguage = getLang.getStringExtra("selectedLang");
         System.out.println(sLanguage);
         textFileName = "words"+sLanguage+".txt";

@@ -45,10 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         Log.d(TAG,"onBindViewHolder: called.");
-//        Glide.with(lcontext)
-//                .asBitmap()
-//                .load(limagesUrls.get(i))
-//                .into(viewHolder.btn_Limages);
+
 
         viewHolder.btn_Limages.setImageResource(limagesUrls.get(i));
         viewHolder.txt_Lnames.setText(lNames.get(i));
@@ -57,12 +54,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v) {
                 Log.d(TAG,"onclick: clicked on an image:"+lNames.get(i));
                 Toast.makeText(lcontext,"Selected Language: "+lNames.get(i),Toast.LENGTH_SHORT).show();
-                Intent setLang = new Intent(lcontext,MainActivity.class);
-                setLang.putExtra("selectedLang",lShortNames.get(i).toString());
-
-                System.out.println(setLang.putExtra("",lNames.get(i)));
-                setLang.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                lcontext.startActivity(setLang);
+                StartPage.selectedlang = lShortNames.get(i);
             }
         });
     }

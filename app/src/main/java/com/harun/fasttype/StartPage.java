@@ -7,8 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,12 +19,33 @@ public class StartPage extends AppCompatActivity {
     private ArrayList<String> lNames = new ArrayList<>();
     private ArrayList<String> lShortNames = new ArrayList<>();
     private ArrayList<Integer> limagesUrls = new ArrayList<>();
+    static String selectedlang = "";
+    ImageButton startBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
-
+        startBtn = findViewById(R.id.btn_start);
         getImages();
+
+
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedlang == ""){
+                    Toast.makeText(getApplicationContext(),"Lütfen Dil Seçiniz",Toast.LENGTH_LONG).show();
+
+                }else {
+                Intent setLang = new Intent(getApplicationContext(),MainActivity.class);
+                setLang.putExtra("selectedLang",selectedlang);
+                startActivity(setLang);
+                }
+            }
+        });
+
+
+
+
     }
     private void getImages(){
         Log.d(TAG,"initImagesBitmaps: preparing bitmaps");
