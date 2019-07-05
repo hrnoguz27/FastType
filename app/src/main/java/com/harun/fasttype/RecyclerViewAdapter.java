@@ -22,11 +22,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     //vars
     private ArrayList<String> lNames = new ArrayList<>();
+    private ArrayList<String> lShortNames = new ArrayList<>();
     private ArrayList<Integer> limagesUrls = new ArrayList<>();
     private Context lcontext;
 
-    public RecyclerViewAdapter(Context lcontext, ArrayList<String> lNames, ArrayList<Integer> limagesUrls) {
+    public RecyclerViewAdapter(Context lcontext, ArrayList<String> lNames,ArrayList<String> lShortNames, ArrayList<Integer> limagesUrls) {
         this.lNames = lNames;
+        this.lShortNames = lShortNames;
         this.limagesUrls = limagesUrls;
         this.lcontext = lcontext;
     }
@@ -54,11 +56,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 Log.d(TAG,"onclick: clicked on an image:"+lNames.get(i));
-                Toast.makeText(lcontext,"Seçilen dil: "+lNames.get(i),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(lcontext,MainActivity.class);
-                intent.putExtra("dil",lNames.get(i));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                lcontext.startActivity(intent);
+                Toast.makeText(lcontext,"Selected Language: "+lNames.get(i),Toast.LENGTH_SHORT).show();
+                Intent setLang = new Intent(lcontext,MainActivity.class);
+                setLang.putExtra("selectedLang",lShortNames.get(i).toString());
+
+                System.out.println(setLang.putExtra("",lNames.get(i)));
+                setLang.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                lcontext.startActivity(setLang);
             }
         });
     }

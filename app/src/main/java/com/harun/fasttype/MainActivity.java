@@ -2,6 +2,7 @@ package com.harun.fasttype;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton baslatbtn;
     Dialog mydialog;
     public String textFileName;
+    String sLanguage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,21 @@ public class MainActivity extends AppCompatActivity {
         tvsayac.setVisibility(View.GONE);
         mydialog = new Dialog(this);
         kelimelistesi = new ArrayList<>();
-        textFileName="wordsEN.txt";
+        textFileName=null;
+        Intent getLang = getIntent();
+        System.out.println(getLang.getStringExtra("selectedLang"));
+        sLanguage = getLang.getStringExtra("selectedLang");
+        System.out.println(sLanguage);
+        textFileName = "words"+sLanguage+".txt";
+//        if(sLanguage.equals("Türkçe")){
+//            textFileName = "wordsTR.txt";
+//        }
+//        else if(sLanguage.equals("English")){
+//            textFileName = "wordsEN.txt";
+//        }
+//        else{
+//            Toast.makeText(this,"You did not choose any language: ",Toast.LENGTH_SHORT).show();
+//        }
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
@@ -81,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         kelime.requestFocus();
         tvsayac.setVisibility(View.INVISIBLE);
         circularProgressBar = findViewById(R.id.progress_circular);
-        kelime.setHint("Yazmaya Başla");
+        kelime.setHint("Start Type");
     }
 
     // yeni commit için yorum yapıldı
@@ -93,19 +111,21 @@ public class MainActivity extends AppCompatActivity {
         baslatbtn.setVisibility(View.GONE);
         baslatbtn.setEnabled(false);
         kelime.requestFocus();
-        int animationDuration = 60000; // 2500ms = 2,5s
-        circularProgressBar.setProgressWithAnimation(100, animationDuration); // Default duration = 1500ms
-        new CountDownTimer(animationDuration, 1000) {
+        final int[] animationDuration = {60000}; // 2500ms = 2,5s
+        circularProgressBar.setProgressWithAnimation(100, animationDuration[0]); // Default duration = 1500ms
+        new CountDownTimer(animationDuration[0], 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
                 // sayac--;
+                kelime.requestFocus();
                 tvsayac.setText(String.valueOf(millisUntilFinished / 1000));
                 System.out.println(millisUntilFinished);
                 colorful(millisUntilFinished);
             }
             @Override
             public void onFinish() {
+                circularProgressBar.setProgressWithAnimation(0);
                 closekeyboard();
                 // Toast.makeText(getApplicationContext(),"dogru cevap sayisi: " + String.valueOf(counter),Toast.LENGTH_LONG).show();
                 kelime.setEnabled(false);
@@ -126,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 });
                 mydialog.show();
                 tvsayac.setVisibility(View.GONE);
+
                 //kelime.setHint("Tekrar Oyna!");
                 kelime.setHintTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
 

@@ -8,11 +8,11 @@
     tools:actionBarNavMode="list">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="405dp">
+        android:layout_height="match_parent">
         <LinearLayout
             android:background="@drawable/gradientbackground"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="340dp"
             android:orientation="vertical">
             <ImageView
                 android:layout_marginTop="25dp"
@@ -27,21 +27,87 @@
                 android:layout_height="wrap_content"
                 android:text="FAST TYPE"
                 android:textColor="#fff"
-                android:textStyle="bold"
-                android:textSize="50sp"
+                android:textStyle="normal"
+                android:textSize="60sp"
                 android:fontFamily="@font/allerta_stencil"/>
         </LinearLayout>
-        <android.support.v7.widget.RecyclerView
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="380dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/gradientbackground2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="70dp"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:id="@+id/btn_start"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_play_circle_outline_black_24dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@mipmap/instagram" />
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@mipmap/twitter" />
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@mipmap/snapchat" />
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@mipmap/linkedin" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="380dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="280dp"
-            android:layout_centerHorizontal="true"
+            android:layout_height="140dp"
+            android:layout_marginTop="290dp"
             android:background="@drawable/shape"
-            android:id="@+id/Lrecyclerview"
-            android:orientation="horizontal">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose Language"
+                android:textColor="@color/startblue"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Lrecyclerview"
+                android:orientation="horizontal">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
 
 
     </RelativeLayout>
-
 </LinearLayout>
