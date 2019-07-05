@@ -19,6 +19,8 @@
     <color name="endblue">#0bcce6</color>
     <color name="startorange">#FF9415 </color>
     <color name="endorange">#FFC709</color>
+    <color name="dialogstart">#7F00FF</color>
+    <color name="dialogend">#E100FF</color>
 
 
 
