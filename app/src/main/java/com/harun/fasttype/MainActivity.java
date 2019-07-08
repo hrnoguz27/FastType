@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 restart = finishDialog.findViewById(R.id.restart);
                 gToMenu = finishDialog.findViewById(R.id.gToMenu);
                 ack_tv = finishDialog.findViewById(R.id.txt_score);
-                ack_tv.setText("Your Score: " + String.valueOf(counter) + " /WPM");
+                ack_tv.setText("Score: " + String.valueOf(counter) + " /WPM");
                 restart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
