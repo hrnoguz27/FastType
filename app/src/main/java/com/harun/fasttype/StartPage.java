@@ -1,6 +1,7 @@
 package com.harun.fasttype;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,13 +23,20 @@ public class StartPage extends AppCompatActivity {
     private ArrayList<String> lShortNames = new ArrayList<>();
     private ArrayList<Integer> limagesUrls = new ArrayList<>();
     static String selectedlang = "";
-    ImageButton startBtn;
+    ImageButton startBtn,instagram,twitter,snapchat,linkedin;
+    TextView passing;
     boolean doubleBackToExitPressedOnce = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
         startBtn = findViewById(R.id.btn_start);
+        instagram = findViewById(R.id.btn_instagram);
+        twitter = findViewById(R.id.btn_twitter);
+        snapchat = findViewById(R.id.btn_snapchat);
+        linkedin = findViewById(R.id.btn_linkedin);
+        passing = findViewById(R.id.pass);
+        passing.setText("<    >");
         getImages();
 
 
@@ -42,6 +51,24 @@ public class StartPage extends AppCompatActivity {
                 setLang.putExtra("selectedLang",selectedlang);
                 startActivity(setLang);
                 }
+            }
+        });
+        instagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToUrl("https://www.instagram.com/hrnoguz27/");
+            }
+        });
+        twitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToUrl("https://twitter.com/hrnoguz27");
+            }
+        });
+        linkedin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToUrl("https://linkedin.com/in/harun-oğuz-2a1938184");
             }
         });
 
@@ -71,7 +98,6 @@ public class StartPage extends AppCompatActivity {
 
 
     }
-
 
     private void getImages(){
         Log.d(TAG,"initImagesBitmaps: preparing bitmaps");
@@ -112,5 +138,11 @@ public class StartPage extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(),lNames,lShortNames,limagesUrls);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void goToUrl (String url) {
+        Uri uriUrl = Uri.parse(url);
+        Intent WebView = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(WebView);
     }
 }

@@ -28,22 +28,26 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    TextView onceki, simdiki, sonraki, tvsayac;
+    TextView onceki, simdiki, sonraki, tvsayac,txtLastScores;
     EditText kelime;
+    String score;
     ArrayList<String> kelimelistesi;
     private String[] languages={"English","Türkçe"};
     int ikincisayi;
     int ucuncusayi;
     int temp;
+    int adscounter=0;
     int counter = 0;
     CircularProgressBar circularProgressBar;
     ImageButton baslatbtn;
-    Dialog mydialog;
+    Dialog finishDialog,scoreDialog;
     public String textFileName;
     String sLanguage;
+    //QuickSort qSort = new QuickSort();
 
 
     @Override
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+        //qSort.sort(lasttenscores,0,lasttenscores.length);
         onceki = findViewById(R.id.tv_first);
         simdiki = findViewById(R.id.tv_simdiki);
         sonraki = findViewById(R.id.tv_last);
@@ -58,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         tvsayac = findViewById(R.id.tv_sayac);
         baslatbtn = findViewById(R.id.btn_start);
         tvsayac.setVisibility(View.GONE);
-        mydialog = new Dialog(this);
+        finishDialog = new Dialog(this);
         kelimelistesi = new ArrayList<>();
         textFileName=null;
         Intent getLang = getIntent();
@@ -66,15 +71,6 @@ public class MainActivity extends AppCompatActivity {
         sLanguage = getLang.getStringExtra("selectedLang");
         System.out.println(sLanguage);
         textFileName = "words"+sLanguage+".txt";
-//        if(sLanguage.equals("Türkçe")){
-//            textFileName = "wordsTR.txt";
-//        }
-//        else if(sLanguage.equals("English")){
-//            textFileName = "wordsEN.txt";
-//        }
-//        else{
-//            Toast.makeText(this,"You did not choose any language: ",Toast.LENGTH_SHORT).show();
-//        }
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
@@ -85,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             String mLine;
             while ((mLine = reader.readLine()) != null) {
                 //process line
-                kelimelistesi.add(mLine);
+                kelimelistesi.add(mLine.trim().toLowerCase());
 
             }
         } catch (IOException e) {
@@ -115,7 +111,8 @@ public class MainActivity extends AppCompatActivity {
         baslatbtn.setVisibility(View.GONE);
         baslatbtn.setEnabled(false);
         kelime.requestFocus();
-        final int[] animationDuration = {60000}; // 2500ms = 2,5s
+        adscounter++;
+        final int[] animationDuration = {20000}; // 2500ms = 2,5s
         circularProgressBar.setProgressWithAnimation(100, animationDuration[0]); // Default duration = 1500ms
         new CountDownTimer(animationDuration[0], 1000) {
 
@@ -128,29 +125,63 @@ public class MainActivity extends AppCompatActivity {
                 colorful(millisUntilFinished);
             }
             @Override
-            public void onFinish() {
+            public void onFinish()  {
                 circularProgressBar.setProgressWithAnimation(0);
                 closekeyboard();
                 // Toast.makeText(getApplicationContext(),"dogru cevap sayisi: " + String.valueOf(counter),Toast.LENGTH_LONG).show();
                 kelime.setEnabled(false);
                 baslatbtn.setEnabled(true);
                 baslatbtn.setVisibility(View.VISIBLE);
-                mydialog.setContentView(R.layout.skordialog);
+                finishDialog.setContentView(R.layout.skordialog);
+
                 TextView kapat;
-                Button odon;
+//                if(adscounter%2==0){
+//                    Intent adIntent = new Intent(getApplicationContext(),AdsActivity.class);
+//                    adIntent.putExtra("adscounter",adscounter);
+//                    startActivity(adIntent);
+//                }
+                Button restart,shareScore,gToMenu,btnLastScore;
                 TextView ack_tv;
-                odon = mydialog.findViewById(R.id.restart);
-                ack_tv = mydialog.findViewById(R.id.acktext);
-                ack_tv.setText("Skor: " + String.valueOf(counter) + " /dks");
-                odon.setOnClickListener(new View.OnClickListener() {
+                shareScore = finishDialog.findViewById(R.id.shareScore);
+                btnLastScore = findViewById(R.id.btn_lastScores);
+                restart = finishDialog.findViewById(R.id.restart);
+                gToMenu = finishDialog.findViewById(R.id.gToMenu);
+                ack_tv = finishDialog.findViewById(R.id.txt_score);
+                ack_tv.setText("Your Score: " + String.valueOf(counter) + " /WPM");
+                restart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mydialog.dismiss();
+                        finishDialog.dismiss();
                     }
                 });
-                mydialog.show();
-                tvsayac.setVisibility(View.GONE);
+                System.out.println(counter);
 
+                score= String.valueOf(counter);
+               // System.out.println(score);
+                shareScore.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent share = new Intent(Intent.ACTION_SEND);
+                        share.setType("text/plain");
+                        String shareBody = "MY SCORE IS "+score+" WPM\n"+"If you believe you can type faster than me, you can challenge me. " +
+                                "If you want to participate in this race, share your score with your friends and join this race.";
+//                        String shareTitle;
+//                        share.putExtra(Intent.EXTRA_SUBJECT,shareTitle);
+                        share.putExtra(Intent.EXTRA_TEXT,shareBody);
+                        startActivity(Intent.createChooser(share,"FAST TYPE"));
+                    }
+                });
+                gToMenu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent gToMain = new Intent(MainActivity.this,StartPage.class);
+                        startActivity(gToMain);
+
+                    }
+                });
+                finishDialog.show();
+                tvsayac.setVisibility(View.GONE);
+                counter=0;
                 //kelime.setHint("Tekrar Oyna!");
                 kelime.setHintTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
 
@@ -230,7 +261,6 @@ public class MainActivity extends AppCompatActivity {
             circularProgressBar.setColor(ContextCompat.getColor(getApplicationContext(),R.color.ten));
         }
     }
-
     private void closekeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
@@ -238,14 +268,6 @@ public class MainActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
-
-    private String selectedLanguage(){
-        String selected;
-        selected="aaaaa";
-        return selected;
-    }
-
-
 
 
 }

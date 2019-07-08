@@ -2,82 +2,92 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="350dp"
-    android:layout_height="175dp"
-    android:background="@color/bluedark"
+    android:layout_height="250dp"
+    android:background="@drawable/gradientbackground3"
     android:padding="5dp"
     android:layout_gravity="center"
     android:orientation="vertical">
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="15dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    android:layout_marginTop="15dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="25dp"
             android:gravity="center"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="17dp"
+            android:textSize="25dp"
             android:textStyle="bold"
-            android:id="@+id/acktext"/>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center">
-    <Button
-        android:layout_width="100dp"
+            android:id="@+id/txt_score"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Last 10 Scores"
+            android:textAlignment="center"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:id="@+id/btn_lastScores"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/buttonstyle"
+            android:gravity="center"
+            android:textSize="17dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:text="Oyuna Dön"
-        android:textAlignment="center"
-        android:padding="5dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:id="@+id/restart"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/buttonstyle"
         android:gravity="center"
-        android:textSize="17dp"/>
+        android:layout_marginTop="5dp">
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginRight="5dp"
+            android:text="RESTART"
+            android:textAlignment="center"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:id="@+id/restart"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/buttonstyle"
+            android:gravity="center"
+            android:textSize="17dp"/>
 
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:text="Choose Language"
-        android:textAlignment="center"
-        android:padding="5dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:id="@+id/restart2"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/buttonstyle"
-        android:gravity="center"
-        android:textSize="17dp"/>
-    <Button
-    android:layout_width="120dp"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="17dp"
-    android:text="Go to Maın Menu"
-    android:textAlignment="center"
-    android:padding="5dp"
-    android:textStyle="bold"
-    android:textColor="@color/white"
-    android:id="@+id/restart3"
-    android:layout_gravity="center_horizontal"
-    android:background="@drawable/buttonstyle"
-    android:gravity="center"
-    android:textSize="17dp"/>
-
-
-</LinearLayout>
-
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="17dp"
+            android:text="Share Your Score"
+            android:textAlignment="center"
+            android:padding="5dp"
+            android:layout_marginRight="5dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:id="@+id/shareScore"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/buttonstyle"
+            android:gravity="center"
+            android:textSize="17dp"/>
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="17dp"
+            android:text="Go to Maın Menu"
+            android:textAlignment="center"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:id="@+id/gToMenu"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/buttonstyle"
+            android:gravity="center"
+            android:textSize="17dp"/>
     </LinearLayout>
-
-
+</LinearLayout>
 </LinearLayout>
