@@ -179,7 +179,9 @@ public class MainActivity extends AppCompatActivity {
                 Date date = new Date();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
                 Score Sscore = new Score(Integer.valueOf(score),formatter.format(date));
+
                 scoreList.add(Sscore);
+                scoreList = scoreList.subList(Math.max(scoreList.size() - 10, 0), scoreList.size());
                 String json = gson.toJson(scoreList);
                 editor.putString("shScoreList",json);
                 editor.commit();

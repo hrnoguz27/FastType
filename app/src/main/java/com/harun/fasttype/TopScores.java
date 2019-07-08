@@ -11,6 +11,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TopScores extends AppCompatActivity {
@@ -31,12 +33,10 @@ public class TopScores extends AppCompatActivity {
             scoreList = gson.fromJson(jsonlist,type);
         }
         listView = findViewById(R.id.lv_screlist);
+
         scoreAdapter = new ScoreAdapter(this,scoreList);
         listView.setAdapter(scoreAdapter);
-//        for (Score score:scoreList){
-//            System.out.println(score.getScore());
-//            System.out.println(score.getScoreDate());
-//        }
+
 
 
     }
