@@ -40,7 +40,7 @@ public class ScoreAdapter extends BaseAdapter {
         score = view.findViewById(R.id.listscore);
         date = view.findViewById(R.id.list_date);
         index.setText(String.valueOf(position+1));
-        score.setText(String.valueOf(scoreList.get(position).getScore())+" WPM");
+        score.setText(String.valueOf(scoreList.get(position).getScore())+"Words");
         date.setText(scoreList.get(position).getScoreDate());
         return view;
     }
