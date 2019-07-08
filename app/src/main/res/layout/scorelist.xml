@@ -1,17 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-
-
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/gradientbackground3">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/titlescores">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:textColor="#fff"
+                android:textSize="30sp"
+                android:text="#"
+                android:gravity="center"
+                />
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:text="Score"
+                android:layout_toRightOf="@id/index"
+                android:textSize="30sp"
+                android:fontFamily="@font/allerta_stencil"
+                android:textColor="#fff"
+                android:gravity="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/listscore"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:fontFamily="@font/allerta_stencil"
+                android:textColor="#fff"
+                android:text="Date"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentEnd="true"/>
+        </LinearLayout>
        <RelativeLayout
            android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+           android:layout_height="wrap_content"
+           android:layout_marginTop="70dp">
            <TextView
                android:layout_width="70dp"
                android:layout_height="70dp"
                android:layout_margin="10dp"
-               android:textColor="#000"
+               android:textColor="#FFC107"
                android:textSize="30sp"
                android:text="1"
                android:gravity="center"
@@ -23,10 +58,11 @@
                android:layout_height="70dp"
                android:id="@+id/listscore"
                android:layout_margin="10dp"
-               android:text="35 Wpm"
+               android:text="35 WPM"
                android:layout_toRightOf="@id/index"
                android:textSize="30sp"
-               android:textColor="@color/cardview_dark_background"
+               android:textColor="#FFC107"
+               android:textStyle="bold"
                android:gravity="center"
                />
            <TextView
@@ -35,20 +71,11 @@
                android:layout_toRightOf="@id/listscore"
                android:gravity="center"
                android:id="@+id/list_date"
-               android:textSize="15sp"
-               android:textColor="@color/cardview_dark_background"
+               android:textSize="25sp"
+               android:textColor="#FFC107"
+               android:textStyle="bold"
                android:text="07/08/2019"
                android:layout_marginTop="10dp"
-               android:layout_alignParentEnd="true"
-
-
-
-               />
+               android:layout_alignParentEnd="true"/>
        </RelativeLayout>
-
-
-
-
-
-
 </RelativeLayout>
