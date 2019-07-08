@@ -3,8 +3,10 @@ package com.harun.fasttype;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,13 +24,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     public String textFileName;
     String sLanguage;
     //QuickSort qSort = new QuickSort();
-
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         tvsayac = findViewById(R.id.tv_sayac);
         baslatbtn = findViewById(R.id.btn_start);
         tvsayac.setVisibility(View.GONE);
+
         finishDialog = new Dialog(this);
         kelimelistesi = new ArrayList<>();
         textFileName=null;
@@ -143,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 Button restart,shareScore,gToMenu,btnLastScore;
                 TextView ack_tv;
                 shareScore = finishDialog.findViewById(R.id.shareScore);
-                btnLastScore = findViewById(R.id.btn_lastScores);
+                btnLastScore = finishDialog.findViewById(R.id.btn_lastScores);
                 restart = finishDialog.findViewById(R.id.restart);
                 gToMenu = finishDialog.findViewById(R.id.gToMenu);
                 ack_tv = finishDialog.findViewById(R.id.txt_score);
@@ -155,9 +164,26 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 System.out.println(counter);
+                List<Score> scoreList = new ArrayList<>();
+                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String jsonlist = sharedPreferences.getString("shScoreList","");
+                Gson gson = new Gson();
+                if (jsonlist.length() > 0){
+                    Type type = new TypeToken<List<Score>>(){}.getType();
+                    scoreList = gson.fromJson(jsonlist,type);
+                }
 
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 score= String.valueOf(counter);
-               // System.out.println(score);
+
+                Date date = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                Score Sscore = new Score(Integer.valueOf(score),formatter.format(date));
+                scoreList.add(Sscore);
+                String json = gson.toJson(scoreList);
+                editor.putString("shScoreList",json);
+                editor.commit();
+
                 shareScore.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -169,6 +195,13 @@ public class MainActivity extends AppCompatActivity {
 //                        share.putExtra(Intent.EXTRA_SUBJECT,shareTitle);
                         share.putExtra(Intent.EXTRA_TEXT,shareBody);
                         startActivity(Intent.createChooser(share,"FAST TYPE"));
+                    }
+                });
+                btnLastScore.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(),TopScores.class);
+                        startActivity(intent);
                     }
                 });
                 gToMenu.setOnClickListener(new View.OnClickListener() {

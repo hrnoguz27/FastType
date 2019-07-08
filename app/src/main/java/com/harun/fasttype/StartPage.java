@@ -56,7 +56,9 @@ public class StartPage extends AppCompatActivity {
         instagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToUrl("https://www.instagram.com/hrnoguz27/");
+                //goToUrl("https://www.instagram.com/hrnoguz27/");
+                Intent intent = new Intent(getApplicationContext(),TopScores.class);
+                startActivity(intent);
             }
         });
         twitter.setOnClickListener(new View.OnClickListener() {

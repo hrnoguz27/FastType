@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TopScores"></activity>
         <activity
             android:name=".LoadingPage"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -22,8 +23,7 @@
         </activity>
         <activity
             android:name=".StartPage"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize">
