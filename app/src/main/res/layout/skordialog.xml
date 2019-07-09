@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="350dp"
-    android:layout_height="250dp"
+    android:layout_height="300dp"
     android:background="@drawable/gradientbackground3"
     android:padding="5dp"
     android:layout_gravity="center"
@@ -13,18 +13,54 @@
     android:orientation="vertical"
     android:layout_gravity="center_vertical"
     android:layout_marginTop="15dp">
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="25dp"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@color/white"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:id="@+id/txt_score"/>
+            android:layout_marginBottom="15dp"
+            android:gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/allerta_stencil"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:id="@+id/txt_score"/>
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/allerta_stencil"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#20e34d"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:id="@+id/txt_scoretrue"
+                android:layout_below="@id/txt_score"
+                />
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=""
+                android:fontFamily="@font/allerta_stencil"
+                android:textColor="#e32d20"
+                android:layout_below="@id/txt_score"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:id="@+id/txt_scorefalse"
+                android:layout_toRightOf="@id/txt_scoretrue"
+                />
+        </RelativeLayout>
+
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

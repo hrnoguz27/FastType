@@ -19,10 +19,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,52 +42,64 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    TextView onceki, simdiki, sonraki, tvsayac,txtLastScores;
-    EditText kelime;
-    String score;
-    ArrayList<String> kelimelistesi;
-    private String[] languages={"English","Türkçe"};
-    int ikincisayi;
-    int ucuncusayi;
-    int temp;
-    int adscounter=0;
-    int counter = 0;
+    // Defining Items
+    private static final String TAG = "";
+    TextView mainword, tvcounter;
+    EditText et_word;
+    ImageButton btn_start;
+    String str_score,sLanguage,textFileName;
+    ArrayList<String> wordlist;
+    int rnd_mainword,scoreTrueCount=0,scoreFalseCount=0,adscount=0;
     CircularProgressBar circularProgressBar;
-    ImageButton baslatbtn;
-    Dialog finishDialog,scoreDialog;
-    public String textFileName;
-    String sLanguage;
-    //QuickSort qSort = new QuickSort();
+    Dialog finishDialog;
     SharedPreferences sharedPreferences;
     private AdView mAdView;
-
+    private InterstitialAd interstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
+        // Added Main Activity Banner Ads
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        //qSort.sort(lasttenscores,0,lasttenscores.length);
-        //onceki = findViewById(R.id.tv_first);
-        simdiki = findViewById(R.id.tv_simdiki);
-        //sonraki = findViewById(R.id.tv_last);
-        kelime = findViewById(R.id.et_kelime);
-        tvsayac = findViewById(R.id.tv_sayac);
-        baslatbtn = findViewById(R.id.btn_start);
-        tvsayac.setVisibility(View.GONE);
+        // Added Main Activity Interstitial Ads
 
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+
+        interstitialAd.setAdListener(new AdListener()
+            {
+                @Override
+                public void onAdClosed(){
+                    finishDialog.dismiss();
+                    interstitialAd.loadAd(new AdRequest.Builder().build());
+                }
+            }
+        );
+
+        // Found Items With id
+        mainword = findViewById(R.id.tv_main);
+        et_word = findViewById(R.id.et_word);
+        tvcounter = findViewById(R.id.tv_counter);
+        btn_start = findViewById(R.id.btn_start);
+        tvcounter.setVisibility(View.GONE);
         finishDialog = new Dialog(this);
-        kelimelistesi = new ArrayList<>();
-        textFileName=null;
+        wordlist = new ArrayList<>();
         Intent getLang = getIntent();
-        Log.i("gelendil",getLang.getStringExtra("selectedLang"));
+        circularProgressBar = findViewById(R.id.progress_circular);
+
+        // Selecting TextFileName
+        textFileName=null;
         sLanguage = getLang.getStringExtra("selectedLang");
         System.out.println(sLanguage);
         textFileName = "words"+sLanguage+".txt";
+
+        // Reading Data from Text File
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
@@ -95,11 +110,11 @@ public class MainActivity extends AppCompatActivity {
             String mLine;
             while ((mLine = reader.readLine()) != null) {
                 //process line
-                kelimelistesi.add(mLine.trim().toLowerCase());
+                wordlist.add(mLine.trim().toLowerCase());
 
             }
         } catch (IOException e) {
-            //log the exception
+            Log.d(TAG,"Unable to select text file");
         } finally {
             if (reader != null) {
                 try {
@@ -109,94 +124,102 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        kelime.requestFocus();
-        tvsayac.setVisibility(View.INVISIBLE);
-        circularProgressBar = findViewById(R.id.progress_circular);
-        kelime.setHint("Start Type");
+        // Keyboard opening automatically
+        et_word.requestFocus();
+        // tvcouter visible = false
+
+        tvcounter.setVisibility(View.INVISIBLE);
+        et_word.setHint("Start Type");
     }
-
-
-
-
-
-    public void baslat(final View view) {
-        kelime.setEnabled(true);
-        tvsayac.setVisibility(View.VISIBLE);
-        baslatbtn.setVisibility(View.GONE);
-        baslatbtn.setEnabled(false);
-        kelime.requestFocus();
-        adscounter++;
-        final int[] animationDuration = {60000}; // 2500ms = 2,5s
+    public void start(final View view) {
+        // Keyboard turns on automatically
+        et_word.requestFocus();
+        et_word.setHint("");
+        mainword.setText("Main Word");
+        // tvcouter visible = true
+        tvcounter.setVisibility(View.VISIBLE);
+        // btn_start visible = false
+        btn_start.setVisibility(View.GONE);
+        //btn_start enable = false
+        btn_start.setEnabled(false);
+        // 60 seconds Timer with animation
+        final int[] animationDuration = {10000}; // 60000ms = 60s
         circularProgressBar.setProgressWithAnimation(100, animationDuration[0]); // Default duration = 1500ms
         new CountDownTimer(animationDuration[0], 1000) {
 
+            // When the Timer start
             @Override
             public void onTick(long millisUntilFinished) {
-                // sayac--;
-                kelime.requestFocus();
-                tvsayac.setText(String.valueOf(millisUntilFinished / 1000));
-                System.out.println(millisUntilFinished);
+
+                tvcounter.setText(String.valueOf(millisUntilFinished / 1000));
+                // System.out.println(millisUntilFinished);
+
+                // coloring to animation with 'colorful' function
                 colorful(millisUntilFinished);
             }
+            // When the timer stop
             @Override
             public void onFinish()  {
+                // circular animation going to beginnig
                 circularProgressBar.setProgressWithAnimation(0);
+                // Keyboard turns off automatically with closekeyboard function
                 closekeyboard();
-                // Toast.makeText(getApplicationContext(),"dogru cevap sayisi: " + String.valueOf(counter),Toast.LENGTH_LONG).show();
-                kelime.setEnabled(false);
-                baslatbtn.setEnabled(true);
-                baslatbtn.setVisibility(View.VISIBLE);
+                mainword.setText("Main Word");
+                et_word.setText("");
+                // User is blocked from typing
+                et_word.setEnabled(false);
+                //btn_start enable = true
+                btn_start.setEnabled(true);
+                //btn_start visible = true
+                btn_start.setVisibility(View.VISIBLE);
                 finishDialog.setContentView(R.layout.skordialog);
-
-                TextView kapat;
-//                if(adscounter%2==0){
-//                    Intent adIntent = new Intent(getApplicationContext(),AdsActivity.class);
-//                    adIntent.putExtra("adscounter",adscounter);
-//                    startActivity(adIntent);
-//                }
+                System.out.println(String.valueOf(scoreTrueCount) + " TRUE");
+                System.out.println(String.valueOf(scoreFalseCount) + " FALSE");
+                // Defining dialog items
                 Button restart,shareScore,gToMenu,btnLastScore;
-                TextView ack_tv;
+                TextView tv_scoredialog,tv_truescoredialog,tv_falsescoredialog;
+
+                // Found Dialog Items With id
                 shareScore = finishDialog.findViewById(R.id.shareScore);
                 btnLastScore = finishDialog.findViewById(R.id.btn_lastScores);
                 restart = finishDialog.findViewById(R.id.restart);
                 gToMenu = finishDialog.findViewById(R.id.gToMenu);
-                ack_tv = finishDialog.findViewById(R.id.txt_score);
-                ack_tv.setText("Score: " + String.valueOf(counter) + " /WPM");
+                tv_scoredialog = finishDialog.findViewById(R.id.txt_score);
+                tv_truescoredialog = finishDialog.findViewById(R.id.txt_scoretrue);
+                tv_falsescoredialog = finishDialog.findViewById(R.id.txt_scorefalse);
+                tv_scoredialog.setText("Score: " + String.valueOf(scoreTrueCount+scoreFalseCount) + " WPM");
+                tv_truescoredialog.setText(String.valueOf(scoreTrueCount) + " TRUE");
+
+                tv_falsescoredialog.setText(String.valueOf(scoreFalseCount) + " FALSE");
+
+                // Click events of  dialog buttons are written
                 restart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        finishDialog.dismiss();
+                        adscount++;
+                        et_word.setHint("Try Fast");
+                        et_word.setEnabled(true);
+                        if(adscount%2==0){
+                            if(interstitialAd.isLoaded()){
+                                interstitialAd.show();
+                            }else{
+                                finishDialog.dismiss();
+                                //startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            }
+                        }else{
+                            finishDialog.dismiss();
+                        }
+
+
                     }
                 });
-                System.out.println(counter);
-                List<Score> scoreList = new ArrayList<>();
-                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                String jsonlist = sharedPreferences.getString("shScoreList","");
-                Gson gson = new Gson();
-                if (jsonlist.length() > 0){
-                    Type type = new TypeToken<List<Score>>(){}.getType();
-                    scoreList = gson.fromJson(jsonlist,type);
-                }
-
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                score= String.valueOf(counter);
-
-                Date date = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                Score Sscore = new Score(Integer.valueOf(score),formatter.format(date));
-                scoreList.add(Sscore);
-                scoreList = scoreList.subList(Math.max(scoreList.size() - 10, 0), scoreList.size());
-                String json = gson.toJson(scoreList);
-                editor.putString("shScoreList",json);
-                editor.commit();
-
                 shareScore.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent share = new Intent(Intent.ACTION_SEND);
                         share.setType("text/plain");
-                        String shareBody = "MY SCORE IS "+score+" WPM\n"+"If you believe you can type faster than me, you can challenge me. " +
-                                "If you want to participate in this race, share your score with your friends and join this race.";
+                        String shareBody = "MY SCORE IS "+ str_score +" TRUE WORD PER MIN\n"+"If you believe, you can type faster, challenge me. " +
+                                "Share your score and join this race. #fasttype ";
 //                        String shareTitle;
 //                        share.putExtra(Intent.EXTRA_SUBJECT,shareTitle);
                         share.putExtra(Intent.EXTRA_TEXT,shareBody);
@@ -219,64 +242,76 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 finishDialog.show();
-                tvsayac.setVisibility(View.GONE);
-                counter=0;
-                //kelime.setHint("Tekrar Oyna!");
-                kelime.setHintTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
+
+                // Defining scoreList for show Last 10 scores button
+                List<Score> scoreList = new ArrayList<>();
+                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String jsonlist = sharedPreferences.getString("shScoreList","");
+                Gson gson = new Gson();
+                if (jsonlist.length() > 0){
+                    Type type = new TypeToken<List<Score>>(){}.getType();
+                    scoreList = gson.fromJson(jsonlist,type);
+                }
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                str_score = String.valueOf(scoreTrueCount);
+                Date date = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                Score Sscore = new Score(Integer.valueOf(str_score),formatter.format(date));
+                scoreList.add(Sscore);
+                scoreList = scoreList.subList(Math.max(scoreList.size() - 10, 0), scoreList.size());
+                String json = gson.toJson(scoreList);
+                editor.putString("shScoreList",json);
+                editor.commit();
+                // tvcounter visible = false
+                tvcounter.setVisibility(View.GONE);
+                // Reset The score
+                    scoreTrueCount=0;
+                    scoreFalseCount=0;
 
             }
         }.start();
-        ikincisayi = randomizer();
-        ucuncusayi = randomizer();
-        simdiki.setText(kelimelistesi.get(ikincisayi));
-//        sonraki.setText(kelimelistesi.get(ucuncusayi));
-        //onceki.setText(" ");
-        // kelime.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-
-        kelime.addTextChangedListener(new TextWatcher() {
+        // Selecting random word
+        rnd_mainword = randomizer();
+        // Setting word to tv_main
+        mainword.setText(wordlist.get(rnd_mainword));
+        // Operations when text changes
+        et_word.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                //onceki.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.coloryanlis));
-
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-                System.out.println(kelimelistesi.get(ikincisayi).equals(s));
-                System.out.println(s);
-                if (kelimelistesi.get(ikincisayi).equals(s.toString())) {
-                    counter++;
-                    //onceki.setText(kelimelistesi.get(ikincisayi));
-
-
-                    simdiki.setText(kelimelistesi.get(ucuncusayi));
-                    //onceki.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colordogru));
-                    //  simdiki.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.colordogru));
-                    temp = ucuncusayi;
-                    ikincisayi = ucuncusayi;
-                    ucuncusayi = randomizer();
-                    //sonraki.setText(kelimelistesi.get(ucuncusayi));
-                    kelime.setText("");
-                    System.out.println("eşitlendi");
+                // Checking mainwords and user's word equal
+                if (wordlist.get(rnd_mainword).equals(s.toString())) {
+                    // if correct, increases the score
+                    scoreTrueCount++;
+                    rnd_mainword = randomizer();
+                    mainword.setText(wordlist.get(rnd_mainword));
+                    et_word.setText("");
                 } else {
-                    // simdiki.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.coloryanlis));
+                    if(wordlist.get(rnd_mainword).length() == s.length()){
+                        Toast.makeText(getApplicationContext(),"Typed Wrong",Toast.LENGTH_SHORT).show();
+                        scoreFalseCount++;
+                        rnd_mainword = randomizer();
+                        mainword.setText(wordlist.get(rnd_mainword));
+                        et_word.setText("");
+                    }
                 }
-
             }
         });
     }
-
     public int randomizer() {
         Random rand = new Random();
-        int n = rand.nextInt(kelimelistesi.size());
+        int n = rand.nextInt(wordlist.size());
+        System.out.println(n);
+        return n;
+    }
+    public int adsrandom() {
+        Random rand = new Random();
+        int n = (int)(Math.random() * 3 + 1);
         System.out.println(n);
         return n;
     }
@@ -307,7 +342,5 @@ public class MainActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
-
-
 }
 

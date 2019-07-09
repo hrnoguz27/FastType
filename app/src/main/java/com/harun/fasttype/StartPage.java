@@ -21,7 +21,7 @@ public class StartPage extends AppCompatActivity {
     private ArrayList<String> lShortNames = new ArrayList<>();
     private ArrayList<Integer> limagesUrls = new ArrayList<>();
     static String selectedlang = "";
-    ImageButton startBtn,instagram,twitter,snapchat,linkedin;
+    ImageButton startBtn,lastScore,twitter,snapchat,linkedin;
     TextView passing;
     boolean doubleBackToExitPressedOnce = false;
     @Override
@@ -29,15 +29,13 @@ public class StartPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
         startBtn = findViewById(R.id.btn_start);
-        instagram = findViewById(R.id.btn_instagram);
+        lastScore = findViewById(R.id.btn_lastScores);
         twitter = findViewById(R.id.btn_twitter);
         snapchat = findViewById(R.id.btn_snapchat);
         linkedin = findViewById(R.id.btn_linkedin);
         passing = findViewById(R.id.pass);
         passing.setText("<    >");
         getImages();
-
-
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +49,7 @@ public class StartPage extends AppCompatActivity {
                 }
             }
         });
-        instagram.setOnClickListener(new View.OnClickListener() {
+        lastScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //goToUrl("https://www.instagram.com/hrnoguz27/");
@@ -68,13 +66,9 @@ public class StartPage extends AppCompatActivity {
         linkedin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToUrl("https://linkedin.com/in/harun-oğuz-2a1938184");
+                goToUrl("https://play.google.com/store/apps/details?id=com.snapchat.android");
             }
         });
-
-
-
-
     }
     @Override
     public void onBackPressed() {

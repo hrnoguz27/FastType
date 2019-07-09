@@ -33,8 +33,5 @@ public class TopScores extends AppCompatActivity {
         listView = findViewById(R.id.lv_screlist);
         scoreAdapter = new ScoreAdapter(this,scoreList);
         listView.setAdapter(scoreAdapter);
-
-
-
     }
 }

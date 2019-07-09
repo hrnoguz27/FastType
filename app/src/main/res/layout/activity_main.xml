@@ -8,8 +8,9 @@
     android:background="@drawable/gradientbackground4">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:id="@+id/hazirlik">
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:id="@+id/bannerad">
         <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
@@ -20,45 +21,15 @@
             ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
         </com.google.android.gms.ads.AdView>
-
-
-        <!--<TextView-->
-            <!--android:id="@+id/tv_first"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:layout_marginEnd="15dp"-->
-            <!--android:layout_marginBottom="15dp"-->
-            <!--android:fontFamily="@font/allerta_stencil"-->
-            <!--android:text="Previous Word"-->
-            <!--android:textColor="#fff"-->
-            <!--android:textSize="20sp"-->
-            <!--android:gravity="center"/>-->
-        <!--<TextView-->
-            <!--android:id="@+id/tv_last"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:layout_marginEnd="15dp"-->
-            <!--android:layout_marginBottom="15dp"-->
-            <!--android:fontFamily="@font/allerta_stencil"-->
-            <!--android:text="Next Word"-->
-            <!--android:textColor="#fff"-->
-            <!--android:textSize="20dp"-->
-            <!--android:gravity="center"/>-->
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_below="@id/hazirlik"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bannerad"
         android:layout_centerInParent="true"
         android:id="@+id/mainword">
         <TextView
-            android:id="@+id/tv_simdiki"
+            android:id="@+id/tv_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -84,7 +55,7 @@
             android:layout_centerInParent="true"
             android:id="@+id/progress_circular"/>
         <TextView
-            android:id="@+id/tv_sayac"
+            android:id="@+id/tv_counter"
             android:layout_width="394dp"
             android:layout_height="194dp"
             android:gravity="center"
@@ -101,7 +72,7 @@
             android:background="#00FFFFFF"
             android:scaleType="centerInside"
             android:src="@mipmap/btn_play"
-            android:onClick="baslat"/>
+            android:onClick="start"/>
     </RelativeLayout>
     <LinearLayout
         android:padding="10dp"
@@ -117,11 +88,10 @@
             android:layout_weight=".70"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:hint="Start Type"
             android:textSize="25sp"
-            android:id="@+id/et_kelime"
+            android:id="@+id/et_word"
             android:textStyle="bold"
-            android:fontFamily="@font/indie_flower"
+            android:fontFamily="@font/teko"
             android:textColor="#fff"
             android:inputType="textNoSuggestions|textVisiblePassword"/>
     </LinearLayout>
