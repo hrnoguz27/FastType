@@ -58,7 +58,6 @@
             android:background="@drawable/buttonstyle"
             android:gravity="center"
             android:textSize="17dp"/>
-
         <Button
             android:layout_width="100dp"
             android:layout_height="100dp"

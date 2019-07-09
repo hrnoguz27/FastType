@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         //qSort.sort(lasttenscores,0,lasttenscores.length);
-        onceki = findViewById(R.id.tv_first);
+        //onceki = findViewById(R.id.tv_first);
         simdiki = findViewById(R.id.tv_simdiki);
-        sonraki = findViewById(R.id.tv_last);
+        //sonraki = findViewById(R.id.tv_last);
         kelime = findViewById(R.id.et_kelime);
         tvsayac = findViewById(R.id.tv_sayac);
         baslatbtn = findViewById(R.id.btn_start);
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         baslatbtn.setEnabled(false);
         kelime.requestFocus();
         adscounter++;
-        final int[] animationDuration = {20000}; // 2500ms = 2,5s
+        final int[] animationDuration = {60000}; // 2500ms = 2,5s
         circularProgressBar.setProgressWithAnimation(100, animationDuration[0]); // Default duration = 1500ms
         new CountDownTimer(animationDuration[0], 1000) {
 
@@ -179,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
                 Date date = new Date();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
                 Score Sscore = new Score(Integer.valueOf(score),formatter.format(date));
-
                 scoreList.add(Sscore);
                 scoreList = scoreList.subList(Math.max(scoreList.size() - 10, 0), scoreList.size());
                 String json = gson.toJson(scoreList);
@@ -225,8 +224,8 @@ public class MainActivity extends AppCompatActivity {
         ikincisayi = randomizer();
         ucuncusayi = randomizer();
         simdiki.setText(kelimelistesi.get(ikincisayi));
-        sonraki.setText(kelimelistesi.get(ucuncusayi));
-        onceki.setText(" ");
+//        sonraki.setText(kelimelistesi.get(ucuncusayi));
+        //onceki.setText(" ");
         // kelime.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
         kelime.addTextChangedListener(new TextWatcher() {
@@ -250,16 +249,16 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(s);
                 if (kelimelistesi.get(ikincisayi).equals(s.toString())) {
                     counter++;
-                    onceki.setText(kelimelistesi.get(ikincisayi));
+                    //onceki.setText(kelimelistesi.get(ikincisayi));
 
 
                     simdiki.setText(kelimelistesi.get(ucuncusayi));
-                    onceki.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colordogru));
+                    //onceki.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colordogru));
                     //  simdiki.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.colordogru));
                     temp = ucuncusayi;
                     ikincisayi = ucuncusayi;
                     ucuncusayi = randomizer();
-                    sonraki.setText(kelimelistesi.get(ucuncusayi));
+                    //sonraki.setText(kelimelistesi.get(ucuncusayi));
                     kelime.setText("");
                     System.out.println("eşitlendi");
                 } else {

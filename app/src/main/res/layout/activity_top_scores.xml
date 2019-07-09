@@ -18,11 +18,11 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:textColor="#fff"
+                android:textColor="#ffc107"
+                android:textStyle="bold"
                 android:textSize="30sp"
                 android:text="#"
-                android:gravity="center"
-                />
+                android:gravity="center"/>
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
@@ -31,34 +31,25 @@
                 android:layout_toRightOf="@id/index"
                 android:textSize="30sp"
                 android:fontFamily="@font/allerta_stencil"
-                android:textColor="#fff"
-                android:gravity="center"
-                />
+                android:textColor="#ffc107"
+                android:textStyle="bold"
+                android:gravity="center"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/listscore"
                 android:gravity="center"
                 android:textSize="30sp"
                 android:fontFamily="@font/allerta_stencil"
-                android:textColor="#fff"
+                android:textColor="#ffc107"
+                android:textStyle="bold"
                 android:text="Date"
-                android:layout_marginTop="10dp"
                 android:layout_alignParentEnd="true"/>
-
         </LinearLayout>
-
-
-
-
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/lv_screlist">
         </ListView>
     </LinearLayout>
-
-
-
-
 </RelativeLayout>
