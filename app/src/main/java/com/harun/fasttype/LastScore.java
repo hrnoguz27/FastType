@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopScores extends AppCompatActivity {
+public class LastScore extends AppCompatActivity {
     ListView listView;
     SharedPreferences sharedPreferences;
     List<Score> scoreList;
@@ -21,7 +21,7 @@ public class TopScores extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_top_scores);
+        setContentView(R.layout.activity_last_score);
         scoreList = new ArrayList<>();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String jsonlist = sharedPreferences.getString("shScoreList","");
@@ -35,3 +35,4 @@ public class TopScores extends AppCompatActivity {
         listView.setAdapter(scoreAdapter);
     }
 }
+

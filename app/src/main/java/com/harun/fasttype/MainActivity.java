@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     TextView mainword, tvcounter;
     EditText et_word;
     ImageButton btn_start;
-    String str_score,sLanguage,textFileName;
+    String str_score,sLanguage,textFileName,mLine;
     ArrayList<String> wordlist;
     int rnd_mainword,scoreTrueCount=0,scoreFalseCount=0,adscount=0;
     CircularProgressBar circularProgressBar;
@@ -62,14 +62,14 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         // Added Main Activity Banner Ads
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this, "ca-app-pub-1655243766004905/2720490008");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        // Added Main Activity Interstitial Ads
 
+        // Added Main Activity Interstitial Ads
         interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.setAdUnitId("ca-app-pub-1655243766004905/2547732636");
         interstitialAd.loadAd(new AdRequest.Builder().build());
 
         interstitialAd.setAdListener(new AdListener()
@@ -96,8 +96,12 @@ public class MainActivity extends AppCompatActivity {
         // Selecting TextFileName
         textFileName=null;
         sLanguage = getLang.getStringExtra("selectedLang");
-        System.out.println(sLanguage);
+
+        //System.out.println(sLanguage);
+
         textFileName = "words"+sLanguage+".txt";
+
+        //System.out.println(textFileName);
 
         // Reading Data from Text File
         BufferedReader reader = null;
@@ -107,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
                     new InputStreamReader(getAssets().open(textFileName), "UTF-8"));
             // do reading, usually loop until end of file reading
-            String mLine;
+
             while ((mLine = reader.readLine()) != null) {
                 //process line
                 wordlist.add(mLine.trim().toLowerCase());
@@ -143,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         //btn_start enable = false
         btn_start.setEnabled(false);
         // 60 seconds Timer with animation
-        final int[] animationDuration = {10000}; // 60000ms = 60s
+        final int[] animationDuration = {60000}; // 60000ms = 60s
         circularProgressBar.setProgressWithAnimation(100, animationDuration[0]); // Default duration = 1500ms
         new CountDownTimer(animationDuration[0], 1000) {
 
@@ -189,17 +193,17 @@ public class MainActivity extends AppCompatActivity {
                 tv_falsescoredialog = finishDialog.findViewById(R.id.txt_scorefalse);
                 tv_scoredialog.setText("Score: " + String.valueOf(scoreTrueCount+scoreFalseCount) + " WPM");
                 tv_truescoredialog.setText(String.valueOf(scoreTrueCount) + " TRUE");
-
                 tv_falsescoredialog.setText(String.valueOf(scoreFalseCount) + " FALSE");
-
+                finishDialog.show();
                 // Click events of  dialog buttons are written
+                    //RESTART BUTTON
                 restart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        adscount++;
+                        adscount = adsrandom();
                         et_word.setHint("Try Fast");
                         et_word.setEnabled(true);
-                        if(adscount%2==0){
+                        if(adscount%2==1){
                             if(interstitialAd.isLoaded()){
                                 interstitialAd.show();
                             }else{
@@ -209,10 +213,9 @@ public class MainActivity extends AppCompatActivity {
                         }else{
                             finishDialog.dismiss();
                         }
-
-
                     }
                 });
+                    //SHARE SCORE BUTTON
                 shareScore.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -226,23 +229,27 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(Intent.createChooser(share,"FAST TYPE"));
                     }
                 });
+                    //LAST SCORE BUTTON
                 btnLastScore.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(),TopScores.class);
+                        Intent intent = new Intent(getApplicationContext(),LastScore.class);
                         startActivity(intent);
                     }
                 });
+                    // GO TO MAIN MENU BUTTON
                 gToMenu.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent gToMain = new Intent(MainActivity.this,StartPage.class);
                         startActivity(gToMain);
-
+                            if(interstitialAd.isLoaded()){
+                                interstitialAd.show();
+                            }else{
+                                finishDialog.dismiss();
+                            }
                     }
                 });
-                finishDialog.show();
-
                 // Defining scoreList for show Last 10 scores button
                 List<Score> scoreList = new ArrayList<>();
                 sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -264,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.commit();
                 // tvcounter visible = false
                 tvcounter.setVisibility(View.GONE);
+
                 // Reset The score
                     scoreTrueCount=0;
                     scoreFalseCount=0;

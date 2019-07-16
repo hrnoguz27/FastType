@@ -19,7 +19,7 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+            ads:adUnitId="ca-app-pub-1655243766004905/2720490008">
         </com.google.android.gms.ads.AdView>
     </RelativeLayout>
     <RelativeLayout
@@ -33,8 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:fontFamily="@font/allerta_stencil"
             android:text="Main Word"
+            android:fontFamily="@font/allerta_stencil"
             android:textColor="#fff"
             android:textSize="35dp"
             android:gravity="center"/>
@@ -91,7 +91,6 @@
             android:textSize="25sp"
             android:id="@+id/et_word"
             android:textStyle="bold"
-            android:fontFamily="@font/teko"
             android:textColor="#fff"
             android:inputType="textNoSuggestions|textVisiblePassword"/>
     </LinearLayout>

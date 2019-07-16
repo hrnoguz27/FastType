@@ -9,10 +9,9 @@
                android:layout_height="70dp"
                android:layout_margin="10dp"
                android:textColor="#fff"
-               android:textSize="30sp"
+               android:textSize="25sp"
                android:text="1"
                android:gravity="center"
-               android:textStyle="bold"
                android:id="@+id/index"
                android:fontFamily="@font/allerta_stencil"/>
            <TextView
@@ -22,10 +21,9 @@
                android:layout_margin="10dp"
                android:text="35 WPM"
                android:layout_toRightOf="@id/index"
-               android:textSize="30sp"
+               android:textSize="25sp"
                android:fontFamily="@font/allerta_stencil"
                android:textColor="#fff"
-               android:textStyle="bold"
                android:gravity="center"/>
            <TextView
                android:layout_width="wrap_content"
@@ -34,9 +32,8 @@
                android:layout_toRightOf="@id/listscore"
                android:gravity="center"
                android:id="@+id/list_date"
-               android:textSize="25sp"
+               android:textSize="20sp"
                android:textColor="#fff"
-               android:textStyle="bold"
                android:text="07/08/2019"
                android:layout_marginTop="10dp"
                android:layout_alignParentEnd="true"/>

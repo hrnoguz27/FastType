@@ -1,14 +1,16 @@
 package com.harun.fasttype;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +23,8 @@ public class StartPage extends AppCompatActivity {
     private ArrayList<String> lShortNames = new ArrayList<>();
     private ArrayList<Integer> limagesUrls = new ArrayList<>();
     static String selectedlang = "";
-    ImageButton startBtn,lastScore,twitter,snapchat,linkedin;
+    ImageButton startBtn,rate,more,instagram,twitter,snapchat,linkedin;
+    Button lastScore;
     TextView passing;
     boolean doubleBackToExitPressedOnce = false;
     @Override
@@ -29,46 +32,45 @@ public class StartPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
         startBtn = findViewById(R.id.btn_start);
-        lastScore = findViewById(R.id.btn_lastScores);
-        twitter = findViewById(R.id.btn_twitter);
-        snapchat = findViewById(R.id.btn_snapchat);
-        linkedin = findViewById(R.id.btn_linkedin);
+        lastScore = findViewById(R.id.btn_spScore);
+//        lastScore = findViewById(R.id.btn_lastScores);
+//        rate = findViewById(R.id.btn_rate);
+//        more = findViewById(R.id.btn_more);
         passing = findViewById(R.id.pass);
-        passing.setText("<    >");
+        passing.setText("   <    >");
         getImages();
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectedlang == ""){
-                    Toast.makeText(getApplicationContext(),"Lütfen Dil Seçiniz",Toast.LENGTH_LONG).show();
+                if (selectedlang == "") {
+                    Toast.makeText(getApplicationContext(), "Please Select Language", Toast.LENGTH_LONG).show();
 
-                }else {
-                Intent setLang = new Intent(getApplicationContext(),MainActivity.class);
-                setLang.putExtra("selectedLang",selectedlang);
-                startActivity(setLang);
+                } else {
+                    Intent setLang = new Intent(getApplicationContext(), MainActivity.class);
+                    setLang.putExtra("selectedLang", selectedlang);
+                    startActivity(setLang);
                 }
             }
         });
         lastScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //goToUrl("https://www.instagram.com/hrnoguz27/");
-                Intent intent = new Intent(getApplicationContext(),TopScores.class);
-                startActivity(intent);
+                Intent score = new Intent(StartPage.this,LastScore.class);
+                startActivity(score);
             }
         });
-        twitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToUrl("https://twitter.com/hrnoguz27");
-            }
-        });
-        linkedin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToUrl("https://play.google.com/store/apps/details?id=com.snapchat.android");
-            }
-        });
+//        rate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //goToUrl("");
+//            }
+//        });
+//        more.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //goToUrl("");
+//            }
+//        });
     }
     @Override
     public void onBackPressed() {
@@ -92,9 +94,9 @@ public class StartPage extends AppCompatActivity {
 
 
     }
-
     private void getImages(){
         Log.d(TAG,"initImagesBitmaps: preparing bitmaps");
+
         limagesUrls.add(R.mipmap.england);
         lNames.add("English");
         lShortNames.add("EN");
@@ -102,6 +104,10 @@ public class StartPage extends AppCompatActivity {
         limagesUrls.add(R.mipmap.turkish);
         lNames.add("Türkçe");
         lShortNames.add("TR");
+
+        limagesUrls.add(R.mipmap.russia);
+        lNames.add("Pусский");
+        lShortNames.add("RU");
 
         limagesUrls.add(R.mipmap.germany);
         lNames.add("Deutsch");
@@ -114,6 +120,14 @@ public class StartPage extends AppCompatActivity {
         limagesUrls.add(R.mipmap.italy);
         lNames.add("Italiano");
         lShortNames.add("IT");
+
+        limagesUrls.add(R.mipmap.united_arab_emirates);
+        lNames.add("العربية");
+        lShortNames.add("AR");
+
+        limagesUrls.add(R.mipmap.india);
+        lNames.add("हिन्दी");
+        lShortNames.add("HI");
 
         limagesUrls.add(R.mipmap.japan);
         lNames.add("日本の");
@@ -133,7 +147,6 @@ public class StartPage extends AppCompatActivity {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(getApplicationContext(),lNames,lShortNames,limagesUrls);
         recyclerView.setAdapter(adapter);
     }
-
     private void goToUrl (String url) {
         Uri uriUrl = Uri.parse(url);
         Intent WebView = new Intent(Intent.ACTION_VIEW, uriUrl);

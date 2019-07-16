@@ -12,13 +12,14 @@
         <LinearLayout
             android:background="@drawable/gradientbackground"
             android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
             android:layout_height="340dp"
             android:orientation="vertical">
             <ImageView
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="140dp"
                 android:src="@drawable/web_hi_res_512"/>
             <TextView
                 android:layout_marginTop="10dp"
@@ -28,72 +29,79 @@
                 android:text="FAST TYPE"
                 android:textColor="#fff"
                 android:textStyle="normal"
-                android:textSize="60sp"
+                android:textSize="50sp"
                 android:fontFamily="@font/allerta_stencil"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="340dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="380dp"
-            android:layout_marginBottom="1dp"
             android:background="@drawable/gradientbackground2"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="70dp"
-                android:orientation="vertical">
+                android:layout_marginTop="100dp"
+                android:orientation="vertical"
+                android:weightSum="3">
 
                 <ImageButton
                     android:layout_width="match_parent"
                     android:id="@+id/btn_start"
                     android:layout_height="match_parent"
+                    android:layout_weight="2"
                     android:background="@drawable/ic_play_circle_outline_black_24dp"
                     />
             </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:layout_width="320dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginTop="25dp"-->
+                <!--android:gravity="center">-->
+                <!--<ImageButton-->
+                    <!--android:layout_width="40dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_marginLeft="50dp"-->
+                    <!--android:layout_marginRight="50dp"-->
+                    <!--android:id="@+id/btn_lastScores"-->
+                    <!--android:background="@mipmap/score"/>-->
 
-            <LinearLayout
-                android:layout_width="320dp"
+                <!--<ImageButton-->
+                    <!--android:id="@+id/btn_rate"-->
+                    <!--android:layout_width="40dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginRight="45dp"-->
+                    <!--android:layout_marginLeft="45dp"-->
+                    <!--android:background="@mipmap/like" />-->
+                <!--<ImageButton-->
+                    <!--android:layout_width="50dp"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:layout_marginRight="50dp"-->
+                    <!--android:layout_marginLeft="50dp"-->
+                    <!--android:id="@+id/btn_more"-->
+                    <!--android:background="@mipmap/more" />-->
+            <!--</LinearLayout>-->
+            <Button
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:text="Last 10 Scores"
+                android:textSize="17sp"
+                android:fontFamily="@font/allerta_stencil"
+                android:textColor="#fff"
+                android:id="@+id/btn_spScore"
+                android:background="@drawable/buttonstylegradient"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="25dp"
-                android:gravity="center">
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginRight="30dp"
-                    android:id="@+id/btn_lastScores"
-                    android:background="@mipmap/instagram" />
-
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginRight="30dp"
-                    android:id="@+id/btn_twitter"
-                    android:background="@mipmap/twitter" />
-
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginRight="30dp"
-                    android:id="@+id/btn_snapchat"
-                    android:background="@mipmap/snapchat" />
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginRight="20dp"
-                    android:id="@+id/btn_linkedin"
-                    android:background="@mipmap/linkedin" />
-            </LinearLayout>
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="380dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="290dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
             android:background="@drawable/shape"
             android:layout_centerHorizontal="true"
             android:orientation="vertical">
@@ -110,18 +118,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/pass"
-                    android:layout_marginLeft="220dp"
                     android:textColor="@color/startblue"/>
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Lrecyclerview"
-                android:orientation="horizontal">
-            </androidx.recyclerview.widget.RecyclerView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Lrecyclerview"
+                    android:orientation="horizontal">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
         </LinearLayout>
-
-
     </RelativeLayout>
 </LinearLayout>
